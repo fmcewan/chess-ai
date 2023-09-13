@@ -85,6 +85,15 @@ void Board::setCurrentPlayer(Color setCurrentPlayer) {
 }
 
 // Board methods
+
+void Board::addPiece(Piece piece, Color color, int i, int j) {
+    
+}
+
+void Board::removePiece(int i, int j) {
+    board[j][i] = Piece(EMPTY, NONE, 0);
+}
+
 void Board::createBoard(std::string FEN) {
 
     // Helper initialisations
@@ -590,11 +599,11 @@ bool Board::makeMove(Move move) {
         board[finalY][finalX] = board[initialY][initialX];
         board[initialY][initialX] = Piece(EMPTY, NONE, 0);
         return true;  
-
+        std::cout << "Move success" << "\n";
     }
     
     else {
-        
+        std::cout << "Move failed" << "\n";
         return false;
 
     }

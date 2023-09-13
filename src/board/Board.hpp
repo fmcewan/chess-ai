@@ -52,11 +52,13 @@ class Board {
         // Board methods   
         void createBoard(std::string FEN);
         void printBoard();
+        void addPiece(Piece piece, Color color, int i, int j);
+        void removePiece(int i, int j);
 
         // Move methods
         bool isEmptyPath(Move move);
         bool isLegalTake(Move move);
         bool isLegalMove(Move move);
-        bool  makeMove(Move move);
+        bool makeMove(Move move);
 
 };
