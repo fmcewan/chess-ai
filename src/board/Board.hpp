@@ -6,25 +6,23 @@
 #include <utility>
     
 // Header includes
-#include "../pieces/Piece.hpp"
+#include "Square.hpp"
 #include "Move.hpp"
+#include "../pieces/Piece.hpp"
+
 
 class Board {
 
     private:
-        // Piece statistics
-        std::vector<Piece> blackPiecesOut;
-        std::vector<Piece> whitePiecesOut;
-        int totalPoints;
-
         // Board statistics
+        int totalPoints;
         int halfmoves;
         int fullmoves;
         int height;
         int width;
-        std::pair<int, int> enPassantSquare;
         Color currentPlayer;
-        std::vector< std::vector<Piece> > board;
+        std::pair<int, int> enPassantSquare;
+        std::vector< std::vector<Square>> board;
 
     public:
         // Constructors
@@ -37,28 +35,25 @@ class Board {
         int getHalfmoves();
         int getFullmoves();
         int getTotalPoints();
-        std::pair<int, int> getEnPassantSquare();
+        Square getSquare(int x, int y);
         Color getCurrentPlayer();
-        std::vector< std::vector<Piece> > getBoard();
+        std::pair<int, int> getEnPassantSquare();
+        std::vector< std::vector<Square> > getBoard();
 
         // Setters
         void setHeight(int setHeight);
         void setWidth(int setWidth);
         void setHalfmoves(int setHalfmoves);
         void setFullmoves(int setFullmoves);
-        void setEnPassantSquare(std::pair<int, int> setEnPassantSquare);
+        void setSquare(Piece setPiece, int x, int y);
         void setCurrentPlayer(Color setCurrentPlayer);
-        
-        // Board methods   
-        void createBoard(std::string FEN);
-        void printBoard();
-        void addPiece(Piece piece, Color color, int i, int j);
-        void removePiece(int i, int j);
+        void setEnPassantSquare(std::pair<int, int> setEnPassantSquare);
 
+        // Board methods   
+        void initialiseBoard(std::string FEN);
+        void printBoard();
+        
         // Move methods
-        bool isEmptyPath(Move move);
-        bool isLegalTake(Move move);
-        bool isLegalMove(Move move);
         bool makeMove(Move move);
 
 };

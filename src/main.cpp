@@ -16,11 +16,11 @@ int main(int argc, char *argv[]) {
 
     // Initialising board
 
-    auto boardObject = std::make_unique<Board>("rnbqkbnr/pp1ppppp/8/2p5/4P3/8/PPPP1PPP/RNBQKBNR w KQkq c6 0 2");
+    auto boardObject = std::make_unique<Board>("rnb1kbnr/ppp1pppp/8/3p4/3PPq2/7N/PPP2PPP/RNBQKB1R w KQkq - 0 1");
 
     // Game window initialisation
 
-    Game game("Chess", 800, 800);
+    Game game("Chess", 1000, 1000);
 
     // Initialise board
 
@@ -34,8 +34,6 @@ int main(int argc, char *argv[]) {
     SDL_Point clickOffset;
     int initialPiecePositionX;
     int initialPiecePositionY;
-    int finalPiecePositionX;
-    int finalPiecePositionY;
 
     while (running) {
 
@@ -62,17 +60,12 @@ int main(int argc, char *argv[]) {
                     if (leftMouseButtonDown && event.button.button == SDL_BUTTON_LEFT) {
                         leftMouseButtonDown = false;
                         
-                        auto initialPiecePosition = game.gamePixelToBoardPosition(initialPiecePositionX, initialPiecePositionY);
-                        auto finalPiecePosition = game.gamePixelToBoardPosition(mousePosition.x, mousePosition.y);
-
-                        Move move = Move(initialPiecePosition.first, initialPiecePosition.second, finalPiecePosition.second, finalPiecePosition.first);
-                        bool moveSuccess = boardObject->makeMove(move);
-                      
-                        if (moveSuccess == true) {
-                            Color newPlayer = (boardObject->getCurrentPlayer() == BLACK) ? WHITE : BLACK;
-                            boardObject->setCurrentPlayer(newPlayer);
-                        }
+                        auto initialPiecePositionBoard = game.gamePixelToBoardPosition(initialPiecePositionX, initialPiecePositionY);
+                        auto finalPiecePositionBoard = game.gamePixelToBoardPosition(mousePosition.x, mousePosition.y);
                         
+                        Move move = Move(boardObject->getBoard(), boardObject->getCurrentPlayer(), initialPiecePositionBoard.first, initialPiecePositionBoard.second, finalPiecePositionBoard.first, finalPiecePositionBoard.second); 
+                        boardObject->makeMove(move);
+                      
                         game.placePiece(boardObject->getBoard());
                     }
                     
@@ -82,7 +75,7 @@ int main(int argc, char *argv[]) {
                     
                     if (!leftMouseButtonDown && event.button.button == SDL_BUTTON_LEFT) {
                         leftMouseButtonDown = true;
-                        game.pickupPiece(mousePosition, clickOffset);
+                        game.pickupPiece(mousePosition, clickOffset, boardObject->getCurrentPlayer());
 
                         initialPiecePositionX = mousePosition.x;
                         initialPiecePositionY = mousePosition.y;

@@ -16,6 +16,7 @@ class Game {
 	private: 
 		SDL_Window* window;
 		SDL_Renderer* renderer;
+        std::vector< std::vector<SDL_Rect> > squares;
         std::vector<SDL_Rect> whitePieces; 
         std::vector<SDL_Rect> blackPieces;
         SDL_Rect selectedPiece;  
@@ -49,15 +50,16 @@ class Game {
 		// Board methods
 		
         SDL_Texture* loadPieceTextureFromBoard(Piece piece);
-        void initialiseBoard(std::vector < std::vector<Piece> > board);
-		void updateBoard(std::vector< std::vector<Piece> > board);
+        void createBoard();
+        void initialiseBoard(std::vector < std::vector<Square> > board);
+		void updateBoard(std::vector< std::vector<Square> > board);
 		void prepareBoard();
 		void presentBoard();
 
         // Piece methods
     
-        void pickupPiece(SDL_Point mousePosition, SDL_Point& clickOffset);
-        void dragPiece(SDL_Point mousePosition, SDL_Point clickOffset, const int initialPiecePositionX, const int initialPiecePositionY, std::vector< std::vector<Piece> > board);
-        void placePiece(std::vector< std::vector<Piece> > board);
+        void pickupPiece(SDL_Point mousePosition, SDL_Point& clickOffset, Color currentPlayColor);
+        void dragPiece(SDL_Point mousePosition, SDL_Point clickOffset, const int initialPiecePositionX, const int initialPiecePositionY, std::vector< std::vector<Square> > board);
+        void placePiece(std::vector< std::vector<Square> > board);
         void renderSelectedPiece();
 };
