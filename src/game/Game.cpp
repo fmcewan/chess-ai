@@ -4,7 +4,7 @@
 
 // Third party
 #include <SDL2/SDL.h>
-#include <SDL2_image/SDL_image.h>
+#include <SDL_image.h>
 
 // Generic
 #include "Game.hpp"

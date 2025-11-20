@@ -345,7 +345,7 @@ bool Move::isInCheck() {
     
     return false;
 
-}:
+}
 
 bool Move::isInCheckmate() {
 

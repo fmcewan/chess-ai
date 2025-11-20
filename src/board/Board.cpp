@@ -5,6 +5,7 @@
 #include <sstream>
 #include <map>
 #include <utility>
+#include <algorithm>
 #include <set>
 
 // Personal includes
@@ -29,7 +30,6 @@ Board::Board(std::string FEN): height(8), width(8),  board(std::vector<std::vect
 }
 
 // Getters
-//
 int Board::getHeight() {
     return height;
 }
@@ -63,7 +63,6 @@ std::vector< std::vector<Square> > Board::getBoard() {
 }
 
 // Setters
-
 void Board::setHeight(int setHeight) {
     height = setHeight;
 }
@@ -81,10 +80,8 @@ void Board::setFullmoves(int setFullmoves) {
 }
 
 void Board::setSquare(Piece setPiece, int setX, int setY) {
-   
     Square setSquare = Square(setPiece, setX, setY);
     board[setY][setX] = setSquare;
-
 }
 
 void Board::setCurrentPlayer(Color setCurrentPlayer) {
